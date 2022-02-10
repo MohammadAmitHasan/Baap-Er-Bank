@@ -9,23 +9,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="container mx-auto">
     <header>
         <h1 class="text-5xl text-center mt-14">Banking
             <span class="font-semibold text-red-500">Status</span>
         </h1>
     </header>
-    <main class="w-3/4 mx-auto">
+    <main class="mx-auto w-4/5">
         <!-- Money Status -->
         <section class="mt-8">
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 <div class="p-8 bg-purple-500 rounded">
                     <h3 class="text-3xl text-white">Deposit</h3>
-                    <h2 class="text-5xl text-white font-semibold">$<span id="deposited-amount">00</span></h2>
+                    <h2 class="text-5xl text-white font-semibold">$<span id="deposited-amount">1300</span></h2>
                 </div>
                 <div class="p-8 rounded bg-blue-500">
                     <h3 class="text-3xl text-white">Withdraw</h3>
-                    <h2 class="text-5xl text-white font-semibold">$00</h2>
+                    <h2 class="text-5xl text-white font-semibold">$<span id="withdraw-amount">20</span></h2>
                 </div>
                 <div class="p-8 rounded bg-yellow-500">
                     <h3 class="text-3xl text-white">Balance</h3>
@@ -35,7 +35,7 @@
         </section>
         <!-- Withdraw and deposit -->
         <section class="mt-8">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Deposit -->
                 <div class="bg-green-300 p-8 rounded">
                     <h3 class="text-3xl mb-3 font-medium">Please Deposit</h3>
