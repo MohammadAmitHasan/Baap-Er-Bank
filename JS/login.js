@@ -4,4 +4,7 @@ document.getElementById('submit-btn').addEventListener('click', function () {
     if (userEmail == 'sontan@bap.com' && userPassword == 'secret') {
         window.location.href = './banking.html';
     }
+    else {
+        alert('Wrong email or Password');
+    }
 });
