@@ -1,55 +1,46 @@
-// Converting function to number from input field
-function getInputNumber(inputFieldId) {
-    const inputField = document.getElementById(inputFieldId);
-    const inputText = inputField.value;
-    const inputAmount = parseFloat(inputText);
-    inputField.value = '';
-    return inputAmount;
-}
-// Converting function from text field
-function getTextNumber(textFieldId) {
-    const textField = document.getElementById(textFieldId);
-    const text = textField.innerText;
-    const newAmount = parseFloat(text);
-    return newAmount;
-}
-// All field updating function
-function updateTextFieldNumber(textFieldId, inputFieldId, withdraw) {
-    // Balance field and amount
-    const balanceField = document.getElementById('total-balance');
-    const balance = getTextNumber('total-balance');
+// Function for updating status
+function updateStatus(inputField, textField, isWithdraw) {
+    const input = document.getElementById(inputField);
+    const inputText = input.value;
+    const inputNumber = parseFloat(inputText);
+    input.value = '';
+    // Unwanted input validation
+    if (inputNumber > 0) {
+        const total = document.getElementById(textField);
+        const totalText = total.innerText;
+        const totalNumber = parseFloat(totalText);
 
-    // Input Field and amount
-    const input = getInputNumber(inputFieldId);
-    const textField = document.getElementById(textFieldId);
-    // Text field
-    const amount = getTextNumber(textFieldId);
-    // Validation for unwanted input
-    if (input > 0) {
-        if (withdraw == true) {
-            // Validation for higher withdraw request from balance
-            if (balance > input) {
-                textField.innerText = input + amount;
-                balanceField.innerText = balance - input;
+        const balance = document.getElementById('balance');
+        const balanceText = balance.innerText;
+        const balanceNumber = parseFloat(balanceText);
+        // Withdraw operation
+        if (isWithdraw == true) {
+            // Validation for higher withdraw than balance
+            if (balanceNumber > totalNumber) {
+                total.innerHTML = totalNumber + inputNumber;
+                balance.innerText = balanceNumber - inputNumber;
             }
             else {
-                alert('Not Enough Balance');
+                alert('Not enough Money');
             }
         }
+        // Deposit Operation
         else {
-            textField.innerText = input + amount;
-            balanceField.innerText = balance + input;
+            total.innerHTML = totalNumber + inputNumber;
+            balance.innerText = balanceNumber + inputNumber;
         }
     }
     else {
-        alert('Wrong Input');
+        alert('Invalid Input');
     }
 }
-// Deposit Event
+
+// Deposit Event Handle
 document.getElementById('deposit-btn').addEventListener('click', function () {
-    updateTextFieldNumber('deposited-amount', 'deposit-input', false);
+    updateStatus('deposit-input', 'total-deposit', false);
 });
-// Withdraw Event
+
+// Withdraw Event Handle
 document.getElementById('withdraw-btn').addEventListener('click', function () {
-    updateTextFieldNumber('withdraw-amount', 'withdraw-input', true);
+    updateStatus('withdraw-input', 'total-withdraw', true);
 });
