@@ -1,46 +1,34 @@
+function getTextNumber(fieldName) {
+    const textField = document.getElementById(fieldName);
+    const inputNumber = parseFloat(textField.innerText);
+    return inputNumber;
+}
 // Function for updating status
-function updateStatus(inputField, textField, isWithdraw) {
+function updateStatus(inputField, textField) {
     const input = document.getElementById(inputField);
-    const inputText = input.value;
-    const inputNumber = parseFloat(inputText);
+    const inputNumber = parseFloat(input.value);
     input.value = '';
     // Unwanted input validation
     if (inputNumber > 0) {
-        const total = document.getElementById(textField);
-        const totalText = total.innerText;
-        const totalNumber = parseFloat(totalText);
-
-        const balance = document.getElementById('balance');
-        const balanceText = balance.innerText;
-        const balanceNumber = parseFloat(balanceText);
-        // Withdraw operation
-        if (isWithdraw == true) {
-            // Validation for higher withdraw than balance
-            if (balanceNumber > totalNumber) {
-                total.innerHTML = totalNumber + inputNumber;
-                balance.innerText = balanceNumber - inputNumber;
-            }
-            else {
-                alert('Not enough Money');
-            }
-        }
-        // Deposit Operation
-        else {
-            total.innerHTML = totalNumber + inputNumber;
-            balance.innerText = balanceNumber + inputNumber;
-        }
+        document.getElementById(textField).innerText = inputNumber + getTextNumber(textField);
     }
     else {
         alert('Invalid Input');
     }
 }
-
+// Update balance
+function updateBalance() {
+    const totalDeposit = getTextNumber('deposited-amount');
+    const totalWithdraw = getTextNumber('withdraw-amount');
+    document.getElementById('total-balance').innerText = totalDeposit - totalWithdraw;
+}
 // Deposit Event Handle
 document.getElementById('deposit-btn').addEventListener('click', function () {
-    updateStatus('deposit-input', 'total-deposit', false);
+    updateStatus('deposit-input', 'deposited-amount');
+    updateBalance();
 });
-
 // Withdraw Event Handle
 document.getElementById('withdraw-btn').addEventListener('click', function () {
-    updateStatus('withdraw-input', 'total-withdraw', true);
+    updateStatus('withdraw-input', 'withdraw-amount');
+    updateBalance();
 });
